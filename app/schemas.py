@@ -1,3 +1,4 @@
+#schemas.py
 from pydantic import BaseModel
 
 class ItemBase(BaseModel):
@@ -12,3 +13,6 @@ class Item(ItemBase):
 
     class Config:
         orm_mode = True
+
+
+#fastapibd

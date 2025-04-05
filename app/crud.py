@@ -1,3 +1,5 @@
+#crud.py
+
 from sqlalchemy.orm import Session
 from . import models, schemas
 
@@ -21,3 +23,12 @@ def delete_item(db: Session, item_id: int):
         db.commit()
         return True
     return False
+def update_item(db: Session, item_id: int, item_data: schemas.ItemCreate):
+    db_item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    if not db_item:
+        return None
+    for key, value in item_data.dict().items():
+        setattr(db_item, key, value)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
